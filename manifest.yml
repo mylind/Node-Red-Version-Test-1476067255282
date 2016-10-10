@@ -1,0 +1,10 @@
+applications:
+- path: .
+  memory: 512M
+  instances: 1
+  domain: mybluemix.net
+  name: Node-Red-Version-Test
+  host: Node-Red-Version-Test
+  disk_quota: 1024M
+  services:
+  - Node-Red-Version-Test-cloudantNoSQLDB
