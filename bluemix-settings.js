@@ -73,6 +73,25 @@ if (process.env.NODE_RED_USERNAME && process.env.NODE_RED_PASSWORD) {
             }
         }
     }
+}else if (process.env.NODE_RED_USERNAME1 && process.env.NODE_RED_PASSWORD1) {
+    settings.adminAuth = {
+        type: "credentials",
+        users: function(username) {
+            if (process.env.NODE_RED_USERNAME1 == username) {
+                return when.resolve({username:username,permissions:"*"});
+            } else {
+                return when.resolve(null);
+            }
+        },
+        authenticate: function(username, password) {
+            if (process.env.NODE_RED_USERNAME1 == username &&
+                process.env.NODE_RED_PASSWORD1 == password) {
+                return when.resolve({username:username,permissions:"*"});
+            } else {
+                return when.resolve(null);
+            }
+        }
+    }
 }
 
 settings.couchAppname = process.env.NODE_RED_APPLICATION_NAME || VCAP_APPLICATION['application_name'];
