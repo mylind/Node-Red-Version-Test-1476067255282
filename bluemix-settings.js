@@ -51,9 +51,32 @@ var settings = module.exports = {
 
     functionGlobalContext: { },
 
-    storageModule: require("./couchstorage")
+    storageModule: require("./couchstorage"),
+
+    adminAuth: {
+        type: "credentials",
+        sessionExpiryTime: 600,
+        users: [
+            {
+                username: "admin",
+                password: "$2a$08$TnhJDZ0OkfEzxjiTldK3c.Mtm0Ixk96JFRna95ij8xB2uMXbmxYZ6",
+                permissions: "*"
+            },
+            {
+                username: "test01",
+                password: "$2a$08$wGH7On0OjViUzRrhzwEh4ertLPTIy/BSCuIcD/zAQ9augOR8idgXe",
+                permissions: "*"
+            },
+            {
+                username: "test02",
+                password: "$2a$08$AavRt2wTeYlmRNgiPUA4JutvipvcWeHAO0oxZhYOw3cf6oefoFYse",
+                permissions: "read"
+            }
+        ]
+    }
 }
 
+/*
 if (process.env.NODE_RED_USERNAME && process.env.NODE_RED_PASSWORD) {
     settings.adminAuth = {
         type: "credentials",
@@ -73,26 +96,8 @@ if (process.env.NODE_RED_USERNAME && process.env.NODE_RED_PASSWORD) {
             }
         }
     }
-}else if (process.env.NODE_RED_USERNAME1 && process.env.NODE_RED_PASSWORD1) {
-    settings.adminAuth = {
-        type: "credentials",
-        users: function(username) {
-            if (process.env.NODE_RED_USERNAME1 == username) {
-                return when.resolve({username:username,permissions:"*"});
-            } else {
-                return when.resolve(null);
-            }
-        },
-        authenticate: function(username, password) {
-            if (process.env.NODE_RED_USERNAME1 == username &&
-                process.env.NODE_RED_PASSWORD1 == password) {
-                return when.resolve({username:username,permissions:"*"});
-            } else {
-                return when.resolve(null);
-            }
-        }
-    }
 }
+*/
 
 settings.couchAppname = process.env.NODE_RED_APPLICATION_NAME || VCAP_APPLICATION['application_name'];
 
